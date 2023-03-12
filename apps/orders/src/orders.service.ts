@@ -5,8 +5,6 @@ import {BILLING_SERVICE} from "./constant/services";
 import {ClientProxy} from "@nestjs/microservices";
 import {lastValueFrom} from "rxjs";
 import {HttpService} from '@nestjs/axios'
-import {AxiosError} from "axios";
-import {catchError} from "rxjs/operators";
 
 @Injectable()
 export class OrdersService {
@@ -46,11 +44,18 @@ export class OrdersService {
 
     async analyse(id: string) {
         console.log("the base64 received");
-        let result;
-       const response=await this.httpService.get("http://host.docker.internal:9000/api/hello/world").toPromise();
-        console.log(response.data);
+        // const response = await this.httpService.post("http://host.docker.internal:9000/api/uploadX", {
+        //     "fileName": id,
+        //     "modelName": "vgg_model"
+        // }).toPromise();
+        // console.log(response.data);
+        await lastValueFrom(this.billingClient.emit('order_created', {
+            "country": "us",
+            "query": "iphone",
+            "language": "en"
+        }));
 
-
-        return result;
+       // return response.data;
+        return "hi"
     }
 }

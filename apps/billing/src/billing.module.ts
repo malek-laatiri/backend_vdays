@@ -4,8 +4,11 @@ import { BillingService } from './billing.service';
 import {RmqModule} from "@app/common";
 import {ConfigModule} from "@nestjs/config";
 import * as Joi from 'joi'
+import { HttpModule } from '@nestjs/axios'
+
 @Module({
-  imports: [ConfigModule.forRoot({
+  imports: [HttpModule,
+      ConfigModule.forRoot({
       isGlobal:true,
       validationSchema:Joi.object({
           RABBIT_MQ_URI:Joi.string().required(),
