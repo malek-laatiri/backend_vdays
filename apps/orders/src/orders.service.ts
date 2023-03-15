@@ -49,13 +49,13 @@ export class OrdersService {
         //     "modelName": "vgg_model"
         // }).toPromise();
         // console.log(response.data);
-        await lastValueFrom(this.billingClient.emit('order_created', {
+        const all_links = await lastValueFrom(this.billingClient.emit('search_class', {
             "country": "us",
             "query": "iphone",
             "language": "en"
         }));
 
-       // return response.data;
-        return "hi"
+        // return response.data;
+        return all_links;
     }
 }

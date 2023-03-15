@@ -14,10 +14,11 @@ export class BillingController {
         return this.billingService.getHello();
     }
 
-    @EventPattern('order_created')
+    @EventPattern('search_class')
     async handleOrderCreated(@Payload() data: any, @Ctx() context: RmqContext) {
-        console.log("called");
-        this.billingService.bill(data);
+        console.log("search_class called");
+        const all_links=this.billingService.bill(data);
         this.rmqService.ack(context);
+        return all_links;
     }
 }

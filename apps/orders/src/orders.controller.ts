@@ -3,7 +3,8 @@ import {OrdersService} from './orders.service';
 import {CreateOrderRequest} from "./dto/create-order.request";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
-@Controller('api/orders')
+
+@Controller('/api/classification')
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) {
     }

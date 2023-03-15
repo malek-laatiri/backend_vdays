@@ -15,10 +15,13 @@ export class BillingService {
     }
 
    async bill(data: any) {
-        this.logger.log('Billing...', data);
-        console.log('Billing...' + data);
-        const response = await this.httpService.post("http://host.docker.internal:9000/api/all_products", data).toPromise();
-        console.log(response.data);
+        this.logger.log('scrapping...');
+        console.log('scrapping...');
+        // const response = await this.httpService.post("http://host.docker.internal:9000/api/all_products", data).toPromise();
+       const response = await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();
+
+       console.log(response);
+        return response;
     }
 
 
