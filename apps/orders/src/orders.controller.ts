@@ -35,6 +35,7 @@ export class OrdersController {
     @Post('/qr')
     async qr(@Body() request: CreateQrRequest){
          var links = await this.ordersService.analyseQr(request);
+         console.log(links);
         return links;
 
 
