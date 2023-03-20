@@ -23,4 +23,5 @@ export class RmqService {
         const originalMessage=context.getMessage();
         channel.ack(originalMessage);
     }
+
 }

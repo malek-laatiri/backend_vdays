@@ -3,6 +3,8 @@ import {OrdersService} from './orders.service';
 import {CreateOrderRequest} from "./dto/create-order.request";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
+import {CreateQrRequest} from "./dto/create-qr.request";
+import {link} from "joi";
 
 @Controller('/api/classification')
 export class OrdersController {
@@ -26,6 +28,14 @@ export class OrdersController {
         this.ordersService.saveFile({"name": fileB64});
 
         return this.ordersService.analyse(fileB64);
+
+
+    }
+
+    @Post('/qr')
+    async qr(@Body() request: CreateQrRequest){
+         var links = await this.ordersService.analyseQr(request);
+        return links;
 
 
     }

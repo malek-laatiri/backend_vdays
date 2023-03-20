@@ -5,23 +5,17 @@ import {HttpService} from '@nestjs/axios'
 export class BillingService {
     private readonly logger = new Logger(BillingService.name);
 
-    constructor(
-                private readonly httpService: HttpService) {
-
+    constructor(private readonly httpService: HttpService) {
     }
 
     getHello(): string {
         return 'Hello World!';
     }
 
-   async bill(data: any) {
+    async bill(data: any):Promise<[]> {
         this.logger.log('scrapping...');
-        console.log('scrapping...');
-        // const response = await this.httpService.post("http://host.docker.internal:9000/api/all_products", data).toPromise();
-       const response = await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();
-
-       console.log(response);
-        return response;
+        var links=await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();
+        return links.data;
     }
 
 

@@ -3,7 +3,7 @@ import {CreateOrderRequest} from "./dto/create-order.request";
 import {OrdersRepository} from "./orders.repository";
 import {BILLING_SERVICE} from "./constant/services";
 import {ClientProxy} from "@nestjs/microservices";
-import {lastValueFrom} from "rxjs";
+import {lastValueFrom, Observable} from "rxjs";
 import {HttpService} from '@nestjs/axios'
 
 @Injectable()
@@ -57,5 +57,15 @@ export class OrdersService {
 
         // return response.data;
         return all_links;
+    }
+
+    async analyseQr(data: any) {
+
+        // return response.data;
+        var links=this.billingClient.send('search_class', data).toPromise();
+        console.log("****")
+        console.log(links)
+        console.log("****")
+        return links;
     }
 }
