@@ -64,17 +64,12 @@ export class OrdersService {
 
         // return response.data;
         var links=this.billingClient.send('search_class', data).toPromise();
-        console.log("****")
-        console.log(links)
-        console.log("****")
         return links;
     }
 
     async saveHistory(data:any){
         var links=this.historyClient.send('save_history', data).toPromise();
-        console.log("****")
-        console.log(links)
-        console.log("****")
+
         return links;
     }
 }

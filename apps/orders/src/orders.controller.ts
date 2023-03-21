@@ -14,7 +14,10 @@ export class OrdersController {
     async getOrders() {
         return this.ordersService.getOrders();
     }
-
+    @Get('/connection')
+    async testConnection() {
+        return "connected";
+    }
     @Post()
     async createOrder(@Body() request: CreateOrderRequest) {
         return this.ordersService.createOrder(request);
@@ -40,7 +43,6 @@ export class OrdersController {
             "isQr": true
         };
         var history = await this.ordersService.saveHistory(historyData);
-        console.log(links);
         return links;
 
 
