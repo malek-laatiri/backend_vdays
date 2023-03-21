@@ -1,8 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
+import {HttpService} from "@nestjs/axios";
+import {HistoryRepository} from "./history.repository";
+import {CreateHistoryRequest} from "./dto/create-history.request";
 
 @Injectable()
 export class HistoryService {
-  getHello(): string {
-    return 'Hello World!';
-  }
+    private readonly logger = new Logger(HistoryService.name);
+
+    constructor(private readonly httpService: HttpService, private readonly historyRepository: HistoryRepository) {
+    }
+
+    async savingHistory(request: CreateHistoryRequest) {
+        this.logger.log('saving history...');
+        try {
+            const history = await this.historyRepository.create(request);
+            return history;
+        } catch (err) {
+            throw err;
+        }
+    }
+
 }

@@ -52,7 +52,23 @@ services:
       - /usr/src/app/node_modules
     extra_hosts:
       - "host.docker.internal:127.0.0.1"
-
+  history:
+    container_name: history
+    build:
+      context: .
+      dockerfile: ./apps/history/Dockerfile
+      target: development
+    command: npm run start:dev history
+    env_file:
+      - ./apps/history/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:

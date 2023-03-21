@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {CreateOrderRequest} from "./dto/create-order.request";
 import {OrdersRepository} from "./orders.repository";
-import {BILLING_SERVICE} from "./constant/services";
+import {BILLING_SERVICE, HISTORY_SERVICE} from "./constant/services";
 import {ClientProxy} from "@nestjs/microservices";
 import {lastValueFrom, Observable} from "rxjs";
 import {HttpService} from '@nestjs/axios'
@@ -11,6 +11,7 @@ export class OrdersService {
 
     constructor(private readonly orderRepository: OrdersRepository,
                 @Inject(BILLING_SERVICE) private billingClient: ClientProxy,
+                @Inject(HISTORY_SERVICE) private historyClient: ClientProxy,
                 private readonly httpService: HttpService) {
 
     }
@@ -63,6 +64,14 @@ export class OrdersService {
 
         // return response.data;
         var links=this.billingClient.send('search_class', data).toPromise();
+        console.log("****")
+        console.log(links)
+        console.log("****")
+        return links;
+    }
+
+    async saveHistory(data:any){
+        var links=this.historyClient.send('save_history', data).toPromise();
         console.log("****")
         console.log(links)
         console.log("****")

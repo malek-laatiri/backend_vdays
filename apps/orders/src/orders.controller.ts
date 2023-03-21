@@ -2,9 +2,8 @@ import {Body, Controller, Get, Post, UploadedFile, UseInterceptors} from '@nestj
 import {OrdersService} from './orders.service';
 import {CreateOrderRequest} from "./dto/create-order.request";
 import {FileInterceptor} from "@nestjs/platform-express";
-import {diskStorage} from "multer";
 import {CreateQrRequest} from "./dto/create-qr.request";
-import {link} from "joi";
+import {CreateHistoryRequest} from "../../history/src/dto/create-history.request";
 
 @Controller('/api/classification')
 export class OrdersController {
@@ -21,9 +20,7 @@ export class OrdersController {
         return this.ordersService.createOrder(request);
     }
 
-    @Post('/upload')
-    @UseInterceptors(FileInterceptor('image'))
-    create(@UploadedFile() file: Express.Multer.File) {
+    @Post('/upload') @UseInterceptors(FileInterceptor('image')) create(@UploadedFile() file: Express.Multer.File) {
         const fileB64 = file.buffer.toString('base64');
         this.ordersService.saveFile({"name": fileB64});
 
@@ -33,9 +30,25 @@ export class OrdersController {
     }
 
     @Post('/qr')
-    async qr(@Body() request: CreateQrRequest){
-         var links = await this.ordersService.analyseQr(request);
-         console.log(links);
+    async qr(@Body() request: CreateQrRequest) {
+        var links = await this.ordersService.analyseQr(request);
+        var historyData = {
+            "title": request.query,
+
+            "date": new Date().toLocaleDateString(),
+
+            "isQr": true
+        };
+        var history = await this.ordersService.saveHistory(historyData);
+        console.log(links);
+        return links;
+
+
+    }
+
+    @Post('/history')
+    async history(@Body() request: CreateHistoryRequest) {
+        var links = await this.ordersService.saveHistory(request);
         return links;
 
 

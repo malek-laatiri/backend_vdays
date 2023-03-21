@@ -8,10 +8,6 @@ export class BillingService {
     constructor(private readonly httpService: HttpService) {
     }
 
-    getHello(): string {
-        return 'Hello World!';
-    }
-
     async bill(data: any):Promise<[]> {
         this.logger.log('scrapping...');
         var links=await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();

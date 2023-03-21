@@ -9,10 +9,7 @@ export class BillingController {
                 private readonly rmqService:RmqService) {
     }
 
-    @Get()
-    getHello(): string {
-        return this.billingService.getHello();
-    }
+
 
     @EventPattern('search_class')
     async handleOrderCreated(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
