@@ -20,4 +20,7 @@ export class HistoryService {
         }
     }
 
+    async getHistory() {
+        return this.historyRepository.find({});
+    }
 }

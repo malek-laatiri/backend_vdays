@@ -35,7 +35,7 @@ export class OrdersController {
         var historyData = {
             "title": request.query,
 
-            "date": new Date().toLocaleDateString(),
+            "date": new Date().toISOString(),
 
             "isQr": true
         };
@@ -46,11 +46,4 @@ export class OrdersController {
 
     }
 
-    @Post('/history')
-    async history(@Body() request: CreateHistoryRequest) {
-        var links = await this.ordersService.saveHistory(request);
-        return links;
-
-
-    }
 }
