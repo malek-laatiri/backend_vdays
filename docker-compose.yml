@@ -69,6 +69,23 @@ services:
       - /usr/src/app/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  wishlist:
+    container_name: wishlist
+    build:
+      context: .
+      dockerfile: ./apps/wishlist/Dockerfile
+      target: development
+    command: npm run start:dev wishlist
+    env_file:
+      - ./apps/wishlist/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:

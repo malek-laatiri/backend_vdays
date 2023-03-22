@@ -3,7 +3,7 @@ import {OrdersService} from './orders.service';
 import {CreateOrderRequest} from "./dto/create-order.request";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {CreateQrRequest} from "./dto/create-qr.request";
-import {CreateHistoryRequest} from "../../history/src/dto/create-history.request";
+import {CreateWishlistRequest} from "../../wishlist/src/dto/create-wishlist.request";
 
 @Controller('/api/classification')
 export class OrdersController {
@@ -44,8 +44,10 @@ export class OrdersController {
         };
         var history = await this.ordersService.saveHistory(historyData);
         return links;
-
-
     }
-
+    @Post('/wishlist')
+    async testWishlist(@Body() request: CreateWishlistRequest) {
+        var history = await this.ordersService.saveWishlist(request);
+        return history;
+    }
 }

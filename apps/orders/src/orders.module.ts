@@ -7,7 +7,7 @@ import {DatabaseModule, RmqModule} from "@app/common";
 import {OrdersRepository} from "./orders.repository";
 import {MongooseModule} from "@nestjs/mongoose";
 import {Order, OrderSchema} from "./schemas/order.schema";
-import {BILLING_SERVICE, HISTORY_SERVICE} from "./constant/services";
+import {BILLING_SERVICE, HISTORY_SERVICE, WISHLIST_SERVICE} from "./constant/services";
 import {HttpModule} from '@nestjs/axios'
 
 
@@ -37,6 +37,9 @@ import {HttpModule} from '@nestjs/axios'
         }),
         RmqModule.register({
             name: HISTORY_SERVICE,
+        }),
+        RmqModule.register({
+            name: WISHLIST_SERVICE,
         })
     ],
     controllers: [OrdersController],

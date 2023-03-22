@@ -1,2 +1,4 @@
 export const BILLING_SERVICE='BILLING';
 export const HISTORY_SERVICE='HISTORY';
+
+export const WISHLIST_SERVICE='WISHLIST';
