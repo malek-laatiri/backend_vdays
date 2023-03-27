@@ -18,4 +18,12 @@ export class BillingController {
         this.rmqService.ack(context);
         return all_links;
     }
+
+    @EventPattern('search_url')
+    async handleOrderCreatedUrl(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
+        console.log("search_url called");
+        const all_links= await this.billingService.byUrl(data);
+        this.rmqService.ack(context);
+        return all_links;
+    }
 }

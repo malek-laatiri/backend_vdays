@@ -79,4 +79,11 @@ export class OrdersService {
 
         return links;
     }
+
+    async analyseUrl(data: any) {
+
+        // return response.data;
+        var links = this.billingClient.send('search_url', data).toPromise();
+        return links;
+    }
 }

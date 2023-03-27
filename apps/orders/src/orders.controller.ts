@@ -14,10 +14,12 @@ export class OrdersController {
     async getOrders() {
         return this.ordersService.getOrders();
     }
+
     @Get('/connection')
     async testConnection() {
         return "connected";
     }
+
     @Post()
     async createOrder(@Body() request: CreateOrderRequest) {
         return this.ordersService.createOrder(request);
@@ -45,9 +47,18 @@ export class OrdersController {
         var history = await this.ordersService.saveHistory(historyData);
         return links;
     }
+
     @Post('/wishlist')
     async testWishlist(@Body() request: CreateWishlistRequest) {
+        request.date = new Date().toISOString();
         var history = await this.ordersService.saveWishlist(request);
         return history;
+    }
+
+    @Post('/analyze/url')
+    async url(@Body() request: { "url":string }) {
+        var links = await this.ordersService.analyseUrl(request);
+
+        return links;
     }
 }

@@ -14,5 +14,9 @@ export class BillingService {
         return links.data;
     }
 
-
+    async byUrl(data: any):Promise<[]> {
+        this.logger.log('scrapping...');
+        var links=await this.httpService.post("http://172.17.0.1:9000/api/byurl", data).toPromise();
+        return links.data;
+    }
 }
