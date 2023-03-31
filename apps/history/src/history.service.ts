@@ -2,6 +2,7 @@ import {Injectable, Logger} from '@nestjs/common';
 import {HttpService} from "@nestjs/axios";
 import {HistoryRepository} from "./history.repository";
 import {CreateHistoryRequest} from "./dto/create-history.request";
+import {History} from "./schemas/history.schema";
 
 @Injectable()
 export class HistoryService {
@@ -20,7 +21,7 @@ export class HistoryService {
         }
     }
 
-    async getHistory() {
-        return this.historyRepository.find({});
+    async getHistory(user:any) {
+        return this.historyRepository.find(user);
     }
 }

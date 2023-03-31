@@ -7,4 +7,7 @@ export class CreateQrRequest {
     query:number;
 
     language:string;
+
+    user:string;
+
 }

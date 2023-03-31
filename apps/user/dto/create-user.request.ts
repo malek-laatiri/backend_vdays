@@ -1,7 +1,8 @@
-import {IsBoolean, IsNotEmpty, IsString} from "class-validator";
+import {IsNotEmpty, IsPositive, IsString, IsPhoneNumber, IsBoolean, IsEmail} from "class-validator";
+import {Prop} from "@nestjs/mongoose";
 import {ApiProperty} from "@nestjs/swagger";
 
-export class CreateHistoryRequest {
+export class CreateUserRequest {
 
     @ApiProperty({
         type: String,
@@ -9,30 +10,29 @@ export class CreateHistoryRequest {
     })
     @IsString()
     @IsNotEmpty()
-    title: string;
-
-    @ApiProperty({
-        type: Date,
-        description: 'This is a required property',
-    })
-    @IsString()
-    @IsNotEmpty()
-    date: Date;
-
-    @IsBoolean()
-    @IsNotEmpty()
-    @ApiProperty({
-        type: Boolean,
-        description: 'This is a required property',
-    })
-    isQr: boolean;
-
-    @IsString()
-    @IsNotEmpty()
+    firstname: string;
     @ApiProperty({
         type: String,
         description: 'This is a required property',
     })
-    user: string;
+    @IsString()
+    @IsNotEmpty()
+    lastname: string;
+    @ApiProperty({
+        type: String,
+        description: 'This is a required property',
+    })
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
+    @ApiProperty({
+        type: String,
+        description: 'This is a required property',
+    })
+    @IsString()
+    @IsNotEmpty()
+    password: string;
+    createdAt: Date;
 
 }

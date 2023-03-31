@@ -1,24 +1,27 @@
-import {Controller, Get} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {WishlistService} from './wishlist.service';
 import {RmqService} from "@app/common";
 import {Ctx, EventPattern, Payload, RmqContext} from "@nestjs/microservices";
+import {CreateUserRequest} from "../../user/dto/create-user.request";
+import {CreateWishlistRequest} from "./dto/create-wishlist.request";
+import {GetWishlist} from "./dto/get-wishlist";
 
-@Controller()
+@Controller('api/wishlist')
 export class WishlistController {
     constructor(private readonly wishlistService: WishlistService, private readonly rmqService: RmqService) {
     }
 
-    @Get('/all')
-    async getWishlist() {
-        return this.wishlistService.getWishlist();
+    @Post('/all')
+    async getWishlist(@Body() getWishlist:GetWishlist) {
+        console.log("fetching wishlist called");
+        return this.wishlistService.getWishlist(getWishlist);
     }
 
-    @EventPattern('save_wishlist')
-    async handleOrderCreated(@Payload() data: any, @Ctx() context: RmqContext): Promise<any> {
+    @Post('/new')
+    async handleOrderCreated(@Body() request: CreateWishlistRequest): Promise<any> {
         console.log("saving wishlist called");
-        const all_links = await this.wishlistService.savingWishlist(data);
-        this.rmqService.ack(context);
-        return all_links;
+        const wishlist = await this.wishlistService.savingWishlist(request);
+        return wishlist;
     }
 
 

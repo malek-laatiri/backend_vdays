@@ -5,11 +5,8 @@ import {AbstractDocument} from "@app/common";
 export class Order extends AbstractDocument {
     @Prop()
     name: string;
-
-
     @Prop()
     price: number;
-
     @Prop()
     phoneNumber: string;
 

@@ -69,6 +69,8 @@ services:
       - /usr/src/app/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    ports:
+      - '3003:3003'
   wishlist:
     container_name: wishlist
     build:
@@ -86,6 +88,28 @@ services:
       - /usr/src/app/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    ports:
+      - '3002:3002'
+  user:
+    container_name: users
+    build:
+      context: .
+      dockerfile: ./apps/user/Dockerfile
+      target: development
+    command: npm run start:dev user
+    env_file:
+      - ./apps/user/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '3001:3001'
+
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
