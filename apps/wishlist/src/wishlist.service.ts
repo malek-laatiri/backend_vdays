@@ -16,12 +16,14 @@ export class WishlistService {
             const wishlist = await this.wishlistRepository.create(request);
             return wishlist;
         } catch (err) {
-
             throw err;
         }
     }
 
     async getWishlist(data: any) {
         return this.wishlistRepository.find(data);
+    }
+    async deleteWishlist(data: any) {
+        return this.wishlistRepository.delete(data);
     }
 }

@@ -24,4 +24,8 @@ export class HistoryService {
     async getHistory(user:any) {
         return this.historyRepository.find(user);
     }
+
+    async deleteHistory(data: any) {
+        return this.historyRepository.delete(data);
+    }
 }

@@ -1,8 +1,10 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post} from '@nestjs/common';
 import {HistoryService} from './history.service';
 import {Ctx, EventPattern, Payload, RmqContext} from "@nestjs/microservices";
 import {RmqService} from "@app/common";
 import {GetHistory} from "./dto/get-history";
+import {DeleteWishlist} from "../../wishlist/src/dto/delete-wishlist";
+import {DeleteHistory} from "./schemas/delete-history";
 
 @Controller('/api/history')
 export class HistoryController {
@@ -21,5 +23,11 @@ export class HistoryController {
         const all_links = await this.historyService.savingHistory(data);
         this.rmqService.ack(context);
         return all_links;
+    }
+
+    @Delete('/delete')
+    async handleOrderDeleted(@Body() deleteHistory:DeleteHistory): Promise<any> {
+        console.log("deleting wishlist called");
+        return await this.historyService.deleteHistory(deleteHistory);
     }
 }
