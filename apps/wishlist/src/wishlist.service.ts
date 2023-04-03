@@ -26,4 +26,8 @@ export class WishlistService {
     async deleteWishlist(data: any) {
         return this.wishlistRepository.delete(data);
     }
+
+    async clearWishlist(data: any) {
+        return this.wishlistRepository.delete({user:data._id});
+    }
 }

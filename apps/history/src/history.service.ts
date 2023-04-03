@@ -28,4 +28,8 @@ export class HistoryService {
     async deleteHistory(data: any) {
         return this.historyRepository.delete(data);
     }
+
+    async clearHistory(data: any) {
+        return this.historyRepository.delete({user:data._id});
+    }
 }

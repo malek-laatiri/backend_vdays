@@ -30,6 +30,10 @@ export class WishlistController {
         console.log("deleting wishlist called");
         return await this.wishlistService.deleteWishlist(deleteWishlist);
     }
-
+    @Delete('/clear')
+    async handleWishlistClear(@Body() deleteWishlist:DeleteWishlist): Promise<any> {
+        console.log("deleting wishlist called");
+        return await this.wishlistService.clearWishlist(deleteWishlist);
+    }
 
 }

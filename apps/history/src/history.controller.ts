@@ -27,7 +27,13 @@ export class HistoryController {
 
     @Delete('/delete')
     async handleOrderDeleted(@Body() deleteHistory:DeleteHistory): Promise<any> {
-        console.log("deleting wishlist called");
+        console.log("deleting history called");
         return await this.historyService.deleteHistory(deleteHistory);
+    }
+
+    @Delete('/clear')
+    async handleHistoryCleared(@Body() deleteHistory:DeleteHistory): Promise<any> {
+        console.log("clearing history called");
+        return await this.historyService.clearHistory(deleteHistory);
     }
 }
