@@ -1,21 +1,25 @@
-import {IsNotEmpty, IsPositive, IsString, IsPhoneNumber} from "class-validator";
+import {IsNotEmpty, IsPositive, IsString} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
+import {Prop} from "@nestjs/mongoose";
+import mongoose from "mongoose";
 
 export class CreateOrderRequest {
-    @IsString()
-    @IsNotEmpty()
     @ApiProperty({
         type: String,
         description: 'This is a required property',
     })
-    name:string;
+    imageFile: string;
 
-    @IsPositive()
     @ApiProperty({
-        type: Number,
+        type: Date,
         description: 'This is a required property',
     })
-    price:number;
+    date: Date;
 
-    phoneNumber:string;
+    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'User'})
+    @ApiProperty({
+        type: String,
+        description: 'This is a required property',
+    })
+    user: string;
 }

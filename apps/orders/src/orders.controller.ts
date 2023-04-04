@@ -9,26 +9,22 @@ export class OrdersController {
     constructor(private readonly ordersService: OrdersService) {
     }
 
-    @Get()
-    async getOrders() {
-        return this.ordersService.getOrders();
-    }
 
     @Get('/connection')
     async testConnection() {
         return "connected";
     }
 
-    @Post()
-    async createOrder(@Body() request: CreateOrderRequest) {
-        return this.ordersService.createOrder(request);
-    }
 
-    @Post('/upload') @UseInterceptors(FileInterceptor('image')) create(@UploadedFile() file: Express.Multer.File) {
+    @Post('/upload')
+    @UseInterceptors(FileInterceptor('image'))
+    create(@UploadedFile() file: Express.Multer.File, @Body() request: CreateOrderRequest) {
+
         const fileB64 = file.buffer.toString('base64');
-        this.ordersService.saveFile({"name": fileB64});
+        request.imageFile = fileB64;
+        this.ordersService.saveFile(request);
 
-        return this.ordersService.analyse(fileB64);
+        //return this.ordersService.analyse(fileB64);
 
 
     }
