@@ -8,6 +8,12 @@ export class BillingService {
     constructor(private readonly httpService: HttpService) {
     }
 
+    async prdictClass(data: any):Promise<[]> {
+        this.logger.log('predicting class...');
+        var links=await this.httpService.post("http://172.17.0.1:9000/api/predict", data).toPromise();
+        return links.data;
+    }
+
     async bill(data: any):Promise<[]> {
         this.logger.log('scrapping...');
         var links=await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();

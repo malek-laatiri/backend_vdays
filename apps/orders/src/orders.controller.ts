@@ -18,14 +18,20 @@ export class OrdersController {
 
     @Post('/upload')
     @UseInterceptors(FileInterceptor('image'))
-    create(@UploadedFile() file: Express.Multer.File, @Body() request: CreateOrderRequest) {
+    async create(@UploadedFile() file: Express.Multer.File, @Body() request: CreateOrderRequest) {
 
         const fileB64 = file.buffer.toString('base64');
         request.imageFile = fileB64;
         this.ordersService.saveFile(request);
-
-        //return this.ordersService.analyse(fileB64);
-
+        //var predicted_class = this.ordersService.analyse(fileB64);
+       var predicted_class="test"
+        var historyData = {
+            "title": predicted_class,
+            "user": request.user,
+            "isQr": false
+        };
+        var history = await this.ordersService.saveHistory(historyData);
+        return predicted_class;
 
     }
 

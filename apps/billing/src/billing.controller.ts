@@ -11,6 +11,15 @@ export class BillingController {
 
 
 
+    @EventPattern('predict_class')
+    async handlePredictClass(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
+        console.log("predict_class called");
+        console.log(data);
+        const all_links= await this.billingService.prdictClass(data);
+        this.rmqService.ack(context);
+        return all_links;
+    }
+
     @EventPattern('search_class')
     async handleOrderCreated(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
         console.log("search_class called");

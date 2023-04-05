@@ -39,4 +39,13 @@ export class UserService {
             throw err;
         }
     }
+    async update(request: any) {
+        this.logger.log('Update user...');
+        try {
+            const user = await this.userRepository.findOneAndUpdate({_id:request._id},request);
+            return user;
+        } catch (err) {
+            throw err;
+        }
+    }
 }

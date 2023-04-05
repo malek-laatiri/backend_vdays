@@ -1,9 +1,10 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Post, Put} from '@nestjs/common';
 import {UserService} from './user.service';
 import {RmqService} from "@app/common";
 import {CreateUserRequest} from "../dto/create-user.request";
 import {getUser} from "../dto/get-user.request";
 import {AuthRequest} from "../dto/auth.request";
+import {UpdateUserRequest} from "../dto/update-user.request";
 
 @Controller("/api/users")
 export class UserController {
@@ -41,5 +42,13 @@ export class UserController {
         }
     }
 
-
+    @Put('/update')
+    async updateUSer(@Body() request: UpdateUserRequest): Promise<any> {
+        try {
+            const user = await this.userService.update(request);
+            return user;
+        } catch (e) {
+            return "User not Found"
+        }
+    }
 }

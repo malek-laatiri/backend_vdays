@@ -37,19 +37,15 @@ export class OrdersService {
 
     async analyse(id: string) {
         console.log("the base64 received");
-        // const response = await this.httpService.post("http://host.docker.internal:9000/api/uploadX", {
-        //     "fileName": id,
-        //     "modelName": "vgg_model"
-        // }).toPromise();
-        // console.log(response.data);
-
-        var links = this.billingClient.send('search_class', {
-            "country": "us", "query": "iphone", "language": "en"
+        var predict_class = this.billingClient.send('predict_class', {
+            "file64": id, "modelName": "resnet_model"
         }).toPromise();
-
-
-        // return response.data;
-        return links;
+        console.log(predict_class);
+        return predict_class;
+        // var links = this.billingClient.send('search_class', {
+        //     "country": "us", "query": "iphone", "language": "en"
+        // }).toPromise();
+        // return links;
     }
 
     async analyseQr(data: any) {
