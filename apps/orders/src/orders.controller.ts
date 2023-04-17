@@ -37,14 +37,16 @@ export class OrdersController {
                 "isQr": false
             };
             var history = await this.ordersService.saveHistory(historyData);
+            return JSON.parse(mySubString).label;
         })
-        // var historyData = {
-        //     "title": "predicted_class",
-        //     "user": request.user,
-        //     "isQr": false
-        // };
-        // var history = await this.ordersService.saveHistory(historyData);
-        return predicted_class;
+
+        return predicted_class.then((e)=>{
+            var s=e.substring(
+                e.indexOf("{") ,
+                e.lastIndexOf("}")+1
+            );
+            return JSON.parse(s).label
+        });
 
     }
 
