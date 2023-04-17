@@ -23,14 +23,27 @@ export class OrdersController {
         const fileB64 = file.buffer.toString('base64');
         request.imageFile = fileB64;
         this.ordersService.saveFile(request);
-        //var predicted_class = this.ordersService.analyse(fileB64);
-       var predicted_class="test"
-        var historyData = {
-            "title": predicted_class,
-            "user": request.user,
-            "isQr": false
-        };
-        var history = await this.ordersService.saveHistory(historyData);
+        var predicted_class = this.ordersService.analyse(fileB64);
+        var mySubString;
+        predicted_class.then(async (e) => {
+            mySubString = e.substring(
+                e.indexOf("{") ,
+                e.lastIndexOf("}")+1
+            );
+            console.log(mySubString)
+            var historyData = {
+                "title": JSON.parse(mySubString).label,
+                "user": request.user,
+                "isQr": false
+            };
+            var history = await this.ordersService.saveHistory(historyData);
+        })
+        // var historyData = {
+        //     "title": "predicted_class",
+        //     "user": request.user,
+        //     "isQr": false
+        // };
+        // var history = await this.ordersService.saveHistory(historyData);
         return predicted_class;
 
     }
@@ -38,6 +51,8 @@ export class OrdersController {
     @Post('/qr')
     async qr(@Body() request: CreateQrRequest) {
         var links = await this.ordersService.analyseQr(request);
+        console.log(request.country);
+        console.log(request.language);
         var historyData = {
             "title": request.query,
 

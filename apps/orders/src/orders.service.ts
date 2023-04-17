@@ -36,11 +36,9 @@ export class OrdersService {
     }
 
     async analyse(id: string) {
-        console.log("the base64 received");
         var predict_class = this.billingClient.send('predict_class', {
-            "file64": id, "modelName": "resnet_model"
+            "file64": id
         }).toPromise();
-        console.log(predict_class);
         return predict_class;
         // var links = this.billingClient.send('search_class', {
         //     "country": "us", "query": "iphone", "language": "en"
