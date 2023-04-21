@@ -87,4 +87,13 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
             this.logger.warn('Document not found with filterQuery', filterQuery);
             throw new NotFoundException('Document not found.');
         }
-    }}
+    }
+    async clear(filterQuery: FilterQuery<TDocument>) {
+        const document = await this.model.deleteMany(filterQuery, {});
+
+        if (!document) {
+            this.logger.warn('Document not found with filterQuery', filterQuery);
+            throw new NotFoundException('Document not found.');
+        }
+    }
+}
