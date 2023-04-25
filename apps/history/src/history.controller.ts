@@ -36,4 +36,11 @@ export class HistoryController {
         console.log("clearing history called");
         return await this.historyService.clearHistory(deleteHistory);
     }
+
+    @Post('/allCount')
+    async getHistoryCount(@Body() user: GetHistory) {
+        return this.historyService.getHistory(user).then((e)=>{
+            return e.length;
+        });
+    }
 }

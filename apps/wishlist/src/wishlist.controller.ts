@@ -35,5 +35,11 @@ export class WishlistController {
         console.log("deleting wishlist called");
         return await this.wishlistService.clearWishlist(deleteWishlist);
     }
-
+    @Post('/allCount')
+    async getWishlistCount(@Body() getWishlist:GetWishlist) {
+        console.log("fetching wishlist called");
+        return this.wishlistService.getWishlist(getWishlist).then((e)=>{
+            return e.length;
+        })
+    }
 }
