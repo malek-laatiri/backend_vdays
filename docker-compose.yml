@@ -109,6 +109,25 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - '3001:3001'
+  settings:
+    container_name: settings
+    build:
+      context: .
+      dockerfile: ./apps/settings/Dockerfile
+      target: development
+    command: npm run start:dev settings
+    env_file:
+      - ./apps/settings/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '3004:3004'
 
   rabbitmq:
     image: "rabbitmq:3-management"

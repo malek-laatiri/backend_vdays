@@ -7,7 +7,7 @@ import {DatabaseModule, RmqModule} from "@app/common";
 import {OrdersRepository} from "./orders.repository";
 import {MongooseModule} from "@nestjs/mongoose";
 import {Order, OrderSchema} from "./schemas/order.schema";
-import {BILLING_SERVICE, HISTORY_SERVICE, USER_SERVICE, WISHLIST_SERVICE} from "./constant/services";
+import {BILLING_SERVICE, HISTORY_SERVICE, SETTINGS_SERVICE, USER_SERVICE, WISHLIST_SERVICE} from "./constant/services";
 import {HttpModule} from '@nestjs/axios'
 
 
