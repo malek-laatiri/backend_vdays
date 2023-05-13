@@ -14,17 +14,6 @@ export class OrdersService {
     }
 
 
-    async createOrder(request: CreateOrderRequest) {
-        try {
-            const order = await this.orderRepository.create(request);
-            await lastValueFrom(this.billingClient.emit('order_created', {request,}));
-            return order;
-        } catch (err) {
-            throw err;
-        }
-
-
-    }
 
     async saveFile(request) {
         try {

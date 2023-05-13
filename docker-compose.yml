@@ -128,6 +128,25 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - '3004:3004'
+  notification:
+    container_name: notification
+    build:
+      context: .
+      dockerfile: ./apps/notification/Dockerfile
+      target: development
+    command: npm run start:dev notification
+    env_file:
+      - ./apps/notification/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '3005:3005'
 
   rabbitmq:
     image: "rabbitmq:3-management"
