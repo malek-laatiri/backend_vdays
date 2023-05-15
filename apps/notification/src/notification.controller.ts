@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Post} from '@nestjs/common';
 import {NotificationService} from './notification.service';
 import {GetNotificationRequest} from "./dto/getNotification.request";
 
@@ -18,5 +18,10 @@ export class NotificationController {
     async getWishlist(@Body() getNotificationslist: GetNotificationRequest) {
         console.log("fetching notifications called");
         return this.notificationService.getNotification(getNotificationslist);
+    }
+    @Delete('/delete')
+    async deleteWishlist(@Body() getNotificationslist: GetNotificationRequest) {
+        console.log("fetching notifications called");
+        return this.notificationService.deleteNotification({_id:getNotificationslist.user});
     }
 }

@@ -42,4 +42,8 @@ export class NotificationService {
         return this.notificationRepository.find(data);
     }
 
+    async deleteNotification(data: any) {
+        return this.notificationRepository.delete(data);
+    }
+
 }
