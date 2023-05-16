@@ -17,7 +17,10 @@ export class UserController {
             const user = await this.userService.savingUser(request);
             return user;
         } catch (e) {
-            return "Email should be unique"
+            return {
+                "statusCode":400,
+                "message":"Email should be unique"
+            }
         }
     }
 

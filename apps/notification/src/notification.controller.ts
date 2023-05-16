@@ -19,9 +19,10 @@ export class NotificationController {
         console.log("fetching notifications called");
         return this.notificationService.getNotification(getNotificationslist);
     }
+
     @Delete('/delete')
     async deleteWishlist(@Body() getNotificationslist: GetNotificationRequest) {
         console.log("fetching notifications called");
-        return this.notificationService.deleteNotification({_id:getNotificationslist.user});
+        return this.notificationService.deleteNotification({_id: getNotificationslist.user});
     }
 }
