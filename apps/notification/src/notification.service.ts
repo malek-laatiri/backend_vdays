@@ -26,7 +26,6 @@ export class NotificationService {
                     "title": item.title, "url": item.url, "user": item.user
                 };
 
-
                 const wishlist = await this.notificationRepository.create(CreateNotificationRequest);
                 return wishlist;
             } catch (err) {
@@ -44,6 +43,30 @@ export class NotificationService {
 
     async deleteNotification(data: any) {
         return this.notificationRepository.delete(data);
+    }
+
+    async sendEmail(data: any) {
+
+        this.wishlistClient.send('get_wishlist', {
+            "user": data.user
+        }).toPromise().then(async (e) => {
+            data.user=data.email;
+
+           var item1 = e[Math.floor(Math.random() * e.length)];
+            var item2 = e[Math.floor(Math.random() * e.length)];
+            var item3 = e[Math.floor(Math.random() * e.length)];
+            var item4 = e[Math.floor(Math.random() * e.length)];
+
+            try {
+                var html="Your weekly email \n"
+                data.data=html+item1["url"]+"\n "+item2["url"]+"\n "+item3["url"]+"\n "+item4["url"];
+                return await this.httpService.post("http://172.17.0.1:9000/api/sendemail", data).toPromise();
+
+            } catch (err) {
+                throw err;
+            }
+        });
+
     }
 
 }

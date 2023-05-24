@@ -1,7 +1,6 @@
 import {Module} from '@nestjs/common';
 import {NotificationController} from './notification.controller';
 import {NotificationService} from './notification.service';
-import {ScheduleModule} from "@nestjs/schedule";
 import {HttpModule} from "@nestjs/axios";
 import {DatabaseModule, RmqModule} from "@app/common";
 import {MongooseModule} from "@nestjs/mongoose";
@@ -12,7 +11,7 @@ import {NotificationRepository} from "./notification.repository";
 import {WISHLIST_SERVICE} from "../../orders/src/constant/services";
 
 @Module({
-    imports: [ScheduleModule.forRoot(), HttpModule, DatabaseModule, MongooseModule.forFeature([{
+    imports: [HttpModule, DatabaseModule, MongooseModule.forFeature([{
         name: Notification.name, schema: NotificationSchema
     }]), ConfigModule.forRoot({
         isGlobal: true, validationSchema: Joi.object({
