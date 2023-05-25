@@ -10,6 +10,7 @@ export class BillingService {
 
     async prdictClass(data: any):Promise<[]> {
         this.logger.log('predicting class...');
+
         var links=await this.httpService.post("http://172.17.0.1:9000/api/predict", data).toPromise();
         return links.data;
     }

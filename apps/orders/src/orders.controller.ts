@@ -23,7 +23,7 @@ export class OrdersController {
         const fileB64 = file.buffer.toString('base64');
         request.imageFile = fileB64;
         this.ordersService.saveFile(request);
-        var predicted_class = this.ordersService.analyse(fileB64);
+        var predicted_class = this.ordersService.analyse(fileB64,request.left,request.top,request.bottom,request.right);
         var mySubString;
         predicted_class.then(async (e) => {
             mySubString = e.substring(

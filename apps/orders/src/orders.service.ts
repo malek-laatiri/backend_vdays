@@ -24,9 +24,13 @@ export class OrdersService {
         }
     }
 
-    async analyse(id: string) {
+    async analyse(id: string,left:string,top:string,bottom:string,right:string) {
         var predict_class = this.billingClient.send('predict_class', {
-            "file64": id
+            "file64": id,
+            "left":parseInt(left),
+            "top":parseInt(top),
+            "bottom":parseInt(bottom),
+            "right":parseInt(right)
         }).toPromise();
         return predict_class;
         // var links = this.billingClient.send('search_class', {
