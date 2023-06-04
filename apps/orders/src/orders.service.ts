@@ -59,7 +59,17 @@ export class OrdersService {
         var links = this.billingClient.send('search_url', data).toPromise();
         return links;
     }
+    async compare(data: any) {
 
+        // return response.data;
+        var links = this.billingClient.send('compare', data).toPromise();
+        return links;
+    }
+    async rating(data: any) {
 
+        // return response.data;
+        var links = this.billingClient.send('rating', data).toPromise();
+        return links;
+    }
 }
 

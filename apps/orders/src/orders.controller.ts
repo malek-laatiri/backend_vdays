@@ -74,5 +74,17 @@ export class OrdersController {
         return links;
     }
 
+    @Post('/compare')
+    async compare(@Body() request: { "url": string}) {
+        var links = await this.ordersService.compare(request);
 
+        return links;
+    }
+
+
+    @Post('/rating')
+    async rating(@Body() request: { "url": string}) {
+        var links = await this.ordersService.rating(request);
+        return links;
+    }
 }

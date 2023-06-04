@@ -26,4 +26,16 @@ export class BillingService {
         var links=await this.httpService.post("http://172.17.0.1:9000/api/byurl", data).toPromise();
         return links.data;
     }
+
+    async compare(data: any):Promise<[]> {
+        this.logger.log('compare...');
+        var links=await this.httpService.post("http://172.17.0.1:9000/api/compare", data).toPromise();
+        return links.data;
+    }
+
+    async rating(data: any):Promise<[]> {
+        this.logger.log('rating...');
+        var links=await this.httpService.post("http://172.17.0.1:9000/api/rating", data).toPromise();
+        return links.data;
+    }
 }

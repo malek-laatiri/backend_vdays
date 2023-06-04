@@ -35,4 +35,20 @@ export class BillingController {
         this.rmqService.ack(context);
         return all_links;
     }
+
+    @EventPattern('compare')
+    async compare(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
+        console.log("compare called");
+        const all_links= await this.billingService.compare(data);
+        this.rmqService.ack(context);
+        return all_links;
+    }
+
+    @EventPattern('rating')
+    async rating(@Payload() data: any, @Ctx() context: RmqContext):Promise<[]> {
+        console.log("rating called");
+        const all_links= await this.billingService.rating(data);
+        this.rmqService.ack(context);
+        return all_links;
+    }
 }
