@@ -23,12 +23,12 @@ export class OrdersController {
         const fileB64 = file.buffer.toString('base64');
         request.imageFile = fileB64;
         this.ordersService.saveFile(request);
-        var predicted_class = this.ordersService.analyse(fileB64,request.left,request.top,request.bottom,request.right);
+        var predicted_class = this.ordersService.analyse(fileB64, request.left, request.top, request.bottom, request.right);
         var mySubString;
         predicted_class.then(async (e) => {
             mySubString = e.substring(
-                e.indexOf("{") ,
-                e.lastIndexOf("}")+1
+                e.indexOf("{"),
+                e.lastIndexOf("}") + 1
             );
             console.log(mySubString)
             var historyData = {
@@ -40,10 +40,10 @@ export class OrdersController {
             return JSON.parse(mySubString).label;
         })
 
-        return predicted_class.then((e)=>{
-            var s=e.substring(
-                e.indexOf("{") ,
-                e.lastIndexOf("}")+1
+        return predicted_class.then((e) => {
+            var s = e.substring(
+                e.indexOf("{"),
+                e.lastIndexOf("}") + 1
             );
             return JSON.parse(s).label
         });
@@ -75,16 +75,11 @@ export class OrdersController {
     }
 
     @Post('/compare')
-    async compare(@Body() request: { "url": string}) {
+    async compare(@Body() request: { "url": string }) {
         var links = await this.ordersService.compare(request);
 
         return links;
     }
 
 
-    @Post('/rating')
-    async rating(@Body() request: { "url": string}) {
-        var links = await this.ordersService.rating(request);
-        return links;
-    }
 }

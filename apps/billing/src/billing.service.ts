@@ -8,34 +8,30 @@ export class BillingService {
     constructor(private readonly httpService: HttpService) {
     }
 
-    async prdictClass(data: any):Promise<[]> {
+    async prdictClass(data: any): Promise<[]> {
         this.logger.log('predicting class...');
 
-        var links=await this.httpService.post("http://172.17.0.1:9000/api/predict", data).toPromise();
+        var links = await this.httpService.post("http://172.17.0.1:9000/api/predict", data).toPromise();
         return links.data;
     }
 
-    async bill(data: any):Promise<[]> {
+    async bill(data: any): Promise<[]> {
         this.logger.log('scrapping...');
-        var links=await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();
+        var links = await this.httpService.post("http://172.17.0.1:9000/api/all_products", data).toPromise();
         return links.data;
     }
 
-    async byUrl(data: any):Promise<[]> {
+    async byUrl(data: any): Promise<[]> {
         this.logger.log('scrapping...');
-        var links=await this.httpService.post("http://172.17.0.1:9000/api/byurl", data).toPromise();
+        var links = await this.httpService.post("http://172.17.0.1:9000/api/byurl", data).toPromise();
         return links.data;
     }
 
-    async compare(data: any):Promise<[]> {
+    async compare(data: any): Promise<[]> {
         this.logger.log('compare...');
-        var links=await this.httpService.post("http://172.17.0.1:9000/api/compare", data).toPromise();
+        var links = await this.httpService.post("http://172.17.0.1:9000/api/compare", data).toPromise();
         return links.data;
     }
 
-    async rating(data: any):Promise<[]> {
-        this.logger.log('rating...');
-        var links=await this.httpService.post("http://172.17.0.1:9000/api/rating", data).toPromise();
-        return links.data;
-    }
+
 }

@@ -1,9 +1,7 @@
 import {Inject, Injectable} from '@nestjs/common';
-import {CreateOrderRequest} from "./dto/create-order.request";
 import {OrdersRepository} from "./orders.repository";
 import {BILLING_SERVICE, HISTORY_SERVICE} from "./constant/services";
 import {ClientProxy} from "@nestjs/microservices";
-import {lastValueFrom} from "rxjs";
 import {HttpService} from '@nestjs/axios'
 
 @Injectable()
@@ -12,7 +10,6 @@ export class OrdersService {
     constructor(private readonly orderRepository: OrdersRepository, @Inject(BILLING_SERVICE) private billingClient: ClientProxy, @Inject(HISTORY_SERVICE) private historyClient: ClientProxy, private readonly httpService: HttpService) {
 
     }
-
 
 
     async saveFile(request) {
@@ -24,13 +21,13 @@ export class OrdersService {
         }
     }
 
-    async analyse(id: string,left:string,top:string,bottom:string,right:string) {
+    async analyse(id: string, left: string, top: string, bottom: string, right: string) {
         var predict_class = this.billingClient.send('predict_class', {
             "file64": id,
-            "left":parseInt(left),
-            "top":parseInt(top),
-            "bottom":parseInt(bottom),
-            "right":parseInt(right)
+            "left": parseInt(left),
+            "top": parseInt(top),
+            "bottom": parseInt(bottom),
+            "right": parseInt(right)
         }).toPromise();
         return predict_class;
         // var links = this.billingClient.send('search_class', {
@@ -59,17 +56,13 @@ export class OrdersService {
         var links = this.billingClient.send('search_url', data).toPromise();
         return links;
     }
+
     async compare(data: any) {
 
         // return response.data;
         var links = this.billingClient.send('compare', data).toPromise();
         return links;
     }
-    async rating(data: any) {
 
-        // return response.data;
-        var links = this.billingClient.send('rating', data).toPromise();
-        return links;
-    }
 }
 
