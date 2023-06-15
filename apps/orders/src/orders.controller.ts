@@ -26,9 +26,12 @@ export class OrdersController {
         var predicted_class = this.ordersService.analyse(fileB64, request.left, request.top, request.bottom, request.right);
         var mySubString;
         predicted_class.then(async (e) => {
-            mySubString = e.substring(
-                e.indexOf("{"),
-                e.lastIndexOf("}") + 1
+            var ret_string=e;
+            console.log(ret_string)
+             ret_string = ret_string.replace(/'/g, "\"");
+            mySubString = ret_string.substring(
+                ret_string.indexOf("{"),
+                ret_string.lastIndexOf("}") + 1
             );
             console.log(mySubString)
             var historyData = {
@@ -41,11 +44,15 @@ export class OrdersController {
         })
 
         return predicted_class.then((e) => {
-            var s = e.substring(
-                e.indexOf("{"),
-                e.lastIndexOf("}") + 1
+            var ret_string=e;
+            console.log(ret_string)
+            ret_string = ret_string.replace(/'/g, "\"");
+            mySubString = ret_string.substring(
+                ret_string.indexOf("{"),
+                ret_string.lastIndexOf("}") + 1
             );
-            return JSON.parse(s).label
+            console.log(mySubString)
+            return JSON.parse(mySubString).label
         });
 
     }
